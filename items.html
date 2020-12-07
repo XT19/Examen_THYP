@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <head>
+        <title>Filtres</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+		     
+
+       
+
+      
+
+        <body>
+            <div id="items"> </div>
+         </body>
+
+    <script>
+        let api = "https://polemika.univ-paris8.fr/omk/api/items?item_set_id=2"; 
+
+        function getData(urlApi) {
+            d3.json(urlApi, function(error, data) {
+                console.log(data); 
+                showItems(data); 
+            });
+        }
+
+        function showItems(data) {
+
+            data.forEach(function(d) {
+                var card = d3.select('#items').append('div')
+                    .attr('class', 'justify-content-center d-inline-block')
+                    .style('margin', '5px').append('div')
+                    .attr('class', 'card mb-3 text-center')
+                    .style('width', '15rem')
+
+                d3.queue().defer(d3.json, d['o:media'][0]['@id']).awaitAll(function(error, imgData) {
+                    if (error) throw error; 
+                    medias = imgData; 
+
+                    var cardBody = card.append('div').attr('class', 'card-body')
+                        cardBody.append('img').attr('class', 'card-img-top')
+                        .style('max-height', '90%').style('max-width', '%')
+                        .attr('src', medias[0]['o:thumbnail_urls']['large'])
+                })
+
+                card.append('div').attr('class', 'card-footer').text("Identifiant : " + d['o:id'])
+
+
+                card.append('div').attr('class', 'card-header').append('h5').text(d['o:title'])
+            });
+        }
+        getData(api);
+    </script>
+</html>
