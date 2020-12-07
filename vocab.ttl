@@ -1,0 +1,31 @@
+@prefix chaine: <https://github.com/XT19/Examen_THYP> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix news: <https://github.com/XT19/Examen_THYP> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+author:Author a rdfs:Class ;
+    rdfs:label "Auteur" ;
+    owl:sameAs foaf:Person ; 
+    vs:term_status "experimental" .
+
+author:name a rdf:Property ;
+    rdfs:label "prénom" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+    
+author:journal a rdf:Property ;
+    rdfs:label "journal" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" . 
+
+news:News a rdfs:Class ;
+    rdfs:label "News" ;
+    vs:term_status "experimental" .
+
+news:hasAuthor a rdfs:Property ;
+    rdfs:label "hasAuthor" ;
+    rdfs:comment "L'article est publié par un auteur" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" 
